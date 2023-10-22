@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Home",
+        "windows": [
+            {
+                "name": "Random",
+                "panes": [
+                    {"cmds": ["ls"]}
+                ]
+            },
+            {
+                "name": "Suzuki OBD"
+            }
+        ]
+    }
+]

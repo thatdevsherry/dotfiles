@@ -1,0 +1,6 @@
+#!/bin/zsh
+brew update
+brew upgrade
+
+rustup update
+source ~/.zshrc && omz update # importing it as whole, but only need to source $HOME/.oh-my-zsh/`something`.sh

@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+clean () {
+    sudo apt clean;
+    sudo apt autoclean;
+    sudo apt autoremove -y;
+}
+
+update () {
+    sudo apt update;
+    sudo apt upgrade -y;
+    cd ~/.fzf && git pull && ./install --all;
+    source ~/.zshrc && omz update;
+}
+
+clean
+update
+clean
