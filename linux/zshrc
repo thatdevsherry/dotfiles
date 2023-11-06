@@ -31,6 +31,9 @@ eval "$(zoxide init zsh)"
 # Better zsh prompt
 eval "$(starship init zsh)"
 
+# Upterm
+export PS1="$([[ ! -z "${UPTERM_ADMIN_SOCKET}"  ]] && echo -e '\xF0\x9F\x86\x99 ')$PS1" # Add an emoji to the prompt if `UPTERM_ADMIN_SOCKET` exists
+
 # Work
 if [ "$(whoami)" != "thatdevsherry" ]; then
     source $HOME/.abyss.sh
