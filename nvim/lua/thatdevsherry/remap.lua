@@ -43,3 +43,6 @@ vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Go to next error" })
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Go to previous error" })
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Go to next error using location list" })
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Go to previous error using location list" })
+
+-- Python
+vim.keymap.set('n', "<leader>//", ":w <bar> exec '!python3 '.shellescape('%')<CR>", {}) -- should move to autocmd?
