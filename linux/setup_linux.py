@@ -114,7 +114,7 @@ def download_software() -> None:
     with TemporaryDirectory() as temp_dir:
         for url in DEBS:
             download_filepath = path.join(temp_dir, url.split("/")[-1])
-            #download(url, download_filepath)
+            # download(url, download_filepath)
             install_deb(download_filepath)
 
 

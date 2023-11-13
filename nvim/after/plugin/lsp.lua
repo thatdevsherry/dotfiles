@@ -1,6 +1,6 @@
 local lsp = require('lsp-zero')
-local cmp = require("cmp")
 local lspconfig = require('lspconfig')
+local cmp = require("cmp")
 local mason = require('mason')
 local mason_lspconfig = require('mason-lspconfig')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -9,19 +9,6 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-})
-
-mason.setup({})
-mason_lspconfig.setup({
-    ensure_installed = {'tsserver', 'eslint', 'lua_ls', 'rust_analyzer', 'pyright'},
-    handlers = {
-        lsp.default_setup,
-        lua_ls = function()
-            local lua_opts = lsp.nvim_lua_ls()
-            lspconfig.lua_ls.setup(lua_opts)
-        end,
-        pyright = lspconfig.pyright.setup{}
-    }
 })
 
 -- Override LSP keymaps
@@ -52,6 +39,23 @@ lsp.set_preferences({
         warn = "W",
         hint = "H",
         info = "I",
+    }
+})
+
+mason.setup({})
+mason_lspconfig.setup({
+    ensure_installed = { 'tsserver', 'eslint', 'lua_ls', 'rust_analyzer', 'pyright' },
+    handlers = {
+        lsp.default_setup,
+        lua_ls = function()
+            local lua_opts = lsp.nvim_lua_ls()
+            lspconfig.lua_ls.setup(lua_opts)
+        end,
+        pyright = function()
+            local pyright_opts = {}
+            lspconfig.pyright.setup(pyright_opts)
+        end,
+        pylyzer = lsp.noop -- not stable
     }
 })
 

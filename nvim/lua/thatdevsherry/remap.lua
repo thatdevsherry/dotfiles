@@ -24,6 +24,10 @@ vim.keymap.set("n", "<leader>f", function()
     vim.lsp.buf.format()
 end, { desc = "[F]ormat buffer using LSP" })
 
+-- Formatter
+vim.keymap.set('n', "<leader>f", "<cmd>Format<CR>", {})
+vim.keymap.set('n', "<leader>F", "<cmd>FormatWrite<CR>", {})
+
 -- Misc
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Launch netrw" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection 1 line down" })
@@ -44,5 +48,5 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Go to previous error"
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Go to next error using location list" })
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Go to previous error using location list" })
 
--- Python
+-- Python Misc
 vim.keymap.set('n', "<leader>//", ":w <bar> exec '!python3 '.shellescape('%')<CR>", {}) -- should move to autocmd?
