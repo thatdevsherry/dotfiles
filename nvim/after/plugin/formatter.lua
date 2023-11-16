@@ -5,6 +5,7 @@ require("formatter").setup({
 	filetype = {
 		python = {
 			require("formatter.filetypes.python").black,
+			require("formatter.filetypes.python").isort,
 		},
 		javascript = {
 			require("formatter.filetypes.javascript").eslint_d,
