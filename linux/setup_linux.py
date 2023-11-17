@@ -65,17 +65,17 @@ def update_setting(conf_setting: GnomeDconf) -> None:
     """
     Updates the setting if the current value is not equal to the one passed.
     """
-    logging.info(f"Running: {conf_setting.title}")
+    logging.info("Running: %s", conf_setting.title)
     cmd_get = ["gsettings", "get", conf_setting.section, conf_setting.option]
     cmd_get_result = run(cmd_get, capture_output=True).stdout.decode().strip()
-    logging.debug(f"cmd get result: {cmd_get_result}")
+    logging.debug("cmd get result: %s", cmd_get_result)
     if cmd_get_result == conf_setting.value:
         logging.debug("Setting already applied, skipping.")
         return
     cmd_set = cmd_get.copy()
     cmd_set[1] = "set"
     cmd_set.append(conf_setting.value)
-    logging.debug(f"set cmd -> {cmd_to_str(cmd_set)}")
+    logging.debug("set cmd -> %s", cmd_to_str(cmd_set))
     cmd_set_result = run(cmd_set, capture_output=True)
 
     if cmd_set_result.returncode != 0:
@@ -85,21 +85,22 @@ def update_setting(conf_setting: GnomeDconf) -> None:
 
 def install_deb(filepath: str) -> None:
     cmd = ["sudo", "apt", "install", filepath]
-    logging.debug(f"cmd -> {cmd_to_str(cmd)}")
+    logging.debug("cmd -> %s", cmd_to_str(cmd))
     cmd_output = run(cmd, capture_output=True)
-    logging.debug(f"cmd output: {cmd_output}")
+    logging.debug("cmd output: %s", cmd_output)
     logging.debug("Package installed")
 
 
 def download(url: str, download_filepath: str) -> None:
-    logging.debug(f"Downloading to {download_filepath}")
+    logging.debug("Downloading to %s", download_filepath)
     a = urlretrieve(url, download_filepath)
     logging.debug(a)
 
 
 def update_gnome_settings() -> None:
     logging.info("Updating gnome settings")
-    [update_setting(i) for i in MY_GNOME_SETTINGS]
+    for i in MY_GNOME_SETTINGS:
+        update_setting(i)
     logging.info("Gnome settings updated!")
 
 
@@ -113,7 +114,7 @@ def download_software() -> None:
     logging.info("Will need sudo for installing packages.")
     with TemporaryDirectory() as temp_dir:
         for url in DEBS:
-            download_filepath = path.join(temp_dir, url.split("/")[-1])
+            download_filepath = path.join(temp_dir, url.rsplit("/", maxsplit=1)[-1])
             # download(url, download_filepath)
             install_deb(download_filepath)
 
