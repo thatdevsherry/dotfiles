@@ -62,6 +62,19 @@ lsp.set_preferences({
 	},
 })
 
+require("mason-tool-installer").setup({
+	ensure_installed = {
+		"mypy",
+		"pylint",
+		"markdownlint",
+		"pydocstyle",
+		"eslint",
+		"black",
+		"prettier",
+		"stylua",
+		"isort",
+	},
+})
 mason.setup({})
 mason_lspconfig.setup({
 	ensure_installed = {

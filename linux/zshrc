@@ -42,7 +42,7 @@ export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 
 # Work
-if [ "$(whoami)" != "thatdevsherry" ]; then
+if [ "$(whoami)" = "msq" ]; then
     source $HOME/.abyss.sh
 fi
 

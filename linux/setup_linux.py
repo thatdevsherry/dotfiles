@@ -1,10 +1,10 @@
 import logging
 from dataclasses import dataclass
+from os import path
 from subprocess import run
+from tempfile import TemporaryDirectory
 from typing import Any, List
 from urllib.request import urlretrieve
-from tempfile import TemporaryDirectory
-from os import path
 
 logging.basicConfig(level=logging.DEBUG)
 
