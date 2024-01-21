@@ -15,10 +15,21 @@ mypy.args = {
 	"--no-error-summary",
 	"--no-pretty",
 }
-pylint.cmd = "pylint"
-
+local handle = io.popen("pyenv which pylint 2>/dev/null")
+if handle then
+	local output = handle:read("*a")
+	local format = output:gsub("[\n\r]", "")
+	handle:close()
+	if format == "" then
+		pylint.cmd = "pylint"
+	else
+		pylint.cmd = format
+	end
+else
+	pylint.cmd = "pylint"
+end
 linter.linters_by_ft = {
-	python = { "pylint", "mypy" },
+	python = { "mypy", "pylint" },
 	markdown = { "markdownlint" },
 }
 
