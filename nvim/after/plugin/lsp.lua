@@ -105,8 +105,29 @@ mason_lspconfig.setup({
 			lspconfig.lua_ls.setup(lua_opts)
 		end,
 		pyright = function()
-			local pyright_opts = {}
-			lspconfig.pyright.setup(pyright_opts)
+			local pyright_opts = function()
+				local handle = io.popen("pyenv which python3 2>/dev/null")
+				if handle then
+					local output = handle:read("*a")
+					local format = output:gsub("[\n\r]", "")
+					handle:close()
+					if format == "" then
+						return {}
+					else
+						return {
+							settings = {
+								python = {
+									pythonPath = format,
+								},
+							},
+						}
+					end
+				else
+					return {}
+				end
+			end
+			local opts = pyright_opts()
+			lspconfig.pyright.setup(opts)
 		end,
 		pylyzer = lsp.noop, -- not stable
 	},
